@@ -1,10 +1,12 @@
-using ConcertTicketApi.Domain.Models;
 using ConcertTicketApi.Infrastructure;
+using ConcertTicketApi.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConcertTicketApi.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/events/{eventId:guid}/tickets")]
     public class TicketsController : ControllerBase
@@ -12,7 +14,7 @@ namespace ConcertTicketApi.Api.Controllers
         private readonly ApplicationDbContext _db;
         public TicketsController(ApplicationDbContext db) => _db = db;
 
-        // GET /api/events/{eventId}/tickets/availability
+        
         [HttpGet("availability")]
         public async Task<IActionResult> Availability(Guid eventId)
         {
@@ -26,7 +28,7 @@ namespace ConcertTicketApi.Api.Controllers
             }));
         }
 
-        // POST /api/events/{eventId}/tickets/{ticketTypeId}/reserve
+        
         [HttpPost("{ticketTypeId:guid}/reserve")]
         public async Task<IActionResult> Reserve(
             Guid eventId,
@@ -51,7 +53,7 @@ namespace ConcertTicketApi.Api.Controllers
             return Ok(res);
         }
 
-        // POST /api/events/{eventId}/tickets/{ticketTypeId}/purchase/{reservationId}
+        
         [HttpPost("{ticketTypeId:guid}/purchase/{reservationId:guid}")]
         public async Task<IActionResult> Purchase(
             Guid eventId, Guid ticketTypeId, Guid reservationId)
@@ -69,7 +71,7 @@ namespace ConcertTicketApi.Api.Controllers
             return Ok(res);
         }
 
-        // DELETE /api/events/{eventId}/tickets/{ticketTypeId}/cancel/{reservationId}
+        
         [HttpDelete("{ticketTypeId:guid}/cancel/{reservationId:guid}")]
         public async Task<IActionResult> Cancel(
             Guid eventId, Guid ticketTypeId, Guid reservationId)

@@ -1,10 +1,12 @@
-using ConcertTicketApi.Domain.Models;
 using ConcertTicketApi.Infrastructure;
+using ConcertTicketApi.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConcertTicketApi.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/events")]
     public class EventsController : ControllerBase
@@ -12,19 +14,19 @@ namespace ConcertTicketApi.Api.Controllers
         private readonly ApplicationDbContext _db;
         public EventsController(ApplicationDbContext db) => _db = db;
 
-        // GET /api/events
+        
         [HttpGet]
         public async Task<IActionResult> GetAll() =>
             Ok(await _db.Events.Include(e => e.TicketTypes).ToListAsync());
 
-        // GET /api/events/{id}
+       
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id) =>
             await _db.Events.Include(e => e.TicketTypes)
                 .FirstOrDefaultAsync(e => e.Id == id)
             is Event ev ? Ok(ev) : NotFound();
 
-        // POST /api/events
+        
         [HttpPost]
         public async Task<IActionResult> Create(Event ev)
         {
@@ -34,7 +36,7 @@ namespace ConcertTicketApi.Api.Controllers
             return CreatedAtAction(nameof(Get), new { id = ev.Id }, ev);
         }
 
-        // PUT /api/events/{id}
+      
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Update(Guid id, Event input)
         {
@@ -46,7 +48,7 @@ namespace ConcertTicketApi.Api.Controllers
             ev.Venue = input.Venue;
             ev.Description = input.Description;
             ev.Capacity = input.Capacity;
-            // (Optionally update TicketTypes here)
+         
 
             await _db.SaveChangesAsync();
             return NoContent();
