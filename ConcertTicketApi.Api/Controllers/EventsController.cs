@@ -1,5 +1,6 @@
-using ConcertTicketApi.Infrastructure;
+using ConcertTicketApi.Api.Models;
 using ConcertTicketApi.Domain.Models;
+using ConcertTicketApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace ConcertTicketApi.Api.Controllers
         public async Task<IActionResult> GetAll() =>
             Ok(await _db.Events.Include(e => e.TicketTypes).ToListAsync());
 
-       
+        
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id) =>
             await _db.Events.Include(e => e.TicketTypes)
@@ -28,27 +29,35 @@ namespace ConcertTicketApi.Api.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> Create(Event ev)
+        public async Task<IActionResult> Create(CreateEventDto dto)
         {
-            ev.Id = Guid.NewGuid();
+            var ev = new Event
+            {
+                Id          = Guid.NewGuid(),
+                Name        = dto.Name,
+                Date        = dto.Date,
+                Venue       = dto.Venue,
+                Description = dto.Description,
+                Capacity    = dto.Capacity
+            };
+
             _db.Events.Add(ev);
             await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = ev.Id }, ev);
         }
 
-      
+        
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, Event input)
+        public async Task<IActionResult> Update(Guid id, CreateEventDto dto)
         {
             var ev = await _db.Events.FindAsync(id);
             if (ev == null) return NotFound();
 
-            ev.Name = input.Name;
-            ev.Date = input.Date;
-            ev.Venue = input.Venue;
-            ev.Description = input.Description;
-            ev.Capacity = input.Capacity;
-         
+            ev.Name        = dto.Name;
+            ev.Date        = dto.Date;
+            ev.Venue       = dto.Venue;
+            ev.Description = dto.Description;
+            ev.Capacity    = dto.Capacity;
 
             await _db.SaveChangesAsync();
             return NoContent();

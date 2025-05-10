@@ -142,3 +142,4 @@ C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Api\obj\Debug\net9.0\re
 C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Api\obj\Debug\net9.0\ConcertTicketApi.Api.pdb
 C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Api\obj\Debug\net9.0\ConcertTicketApi.Api.genruntimeconfig.cache
 C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Api\obj\Debug\net9.0\ref\ConcertTicketApi.Api.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Api\obj\Debug\net9.0\ConcertTicketApi.Api.sourcelink.json
