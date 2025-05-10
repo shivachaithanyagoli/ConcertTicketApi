@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ConcertTicketApi.Api.props" />
+</Project>

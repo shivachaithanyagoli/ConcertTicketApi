@@ -1,0 +1,11 @@
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\bin\Debug\net9.0\ConcertTicketApi.Domain.deps.json
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\bin\Debug\net9.0\ConcertTicketApi.Domain.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\bin\Debug\net9.0\ConcertTicketApi.Domain.pdb
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.AssemblyInfoInputs.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.AssemblyInfo.cs
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.csproj.CoreCompileInputs.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\refint\ConcertTicketApi.Domain.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ConcertTicketApi.Domain.pdb
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Domain\obj\Debug\net9.0\ref\ConcertTicketApi.Domain.dll

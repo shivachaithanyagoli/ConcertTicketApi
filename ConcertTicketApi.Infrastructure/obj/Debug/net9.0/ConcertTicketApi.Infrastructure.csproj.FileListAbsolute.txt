@@ -1,0 +1,17 @@
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Infrastructure.deps.json
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Infrastructure.runtimeconfig.json
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Infrastructure.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Infrastructure.pdb
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Domain.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\bin\Debug\net9.0\ConcertTicketApi.Domain.pdb
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.AssemblyInfo.cs
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertT.93094342.Up2Date
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\refint\ConcertTicketApi.Infrastructure.dll
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.pdb
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ConcertTicketApi.Infrastructure.genruntimeconfig.cache
+C:\Users\chait\Desktop\ConcertTicketApi\ConcertTicketApi.Infrastructure\obj\Debug\net9.0\ref\ConcertTicketApi.Infrastructure.dll

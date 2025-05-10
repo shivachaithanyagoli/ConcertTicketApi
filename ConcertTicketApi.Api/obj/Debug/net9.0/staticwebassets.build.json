@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "MGlWrCyZ3X37eHMFh0rYfkzDs5W7NBwbusPxvZN50sA=",
+  "Source": "ConcertTicketApi.Api",
+  "BasePath": "_content/ConcertTicketApi.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
