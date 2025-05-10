@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "tlHQYfFCgt0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\chait\\Desktop\\ConcertTicketApi\\ConcertTicketApi.Api\\ConcertTicketApi.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\chait\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "C:\\Users\\chait\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
