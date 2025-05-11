@@ -10,7 +10,7 @@ namespace ConcertTicketApi.Api.Mapping
         {
             CreateMap<Event, EventDto>();
             CreateMap<CreateEventDto, Event>();
-            // Add mappings for TicketType and Reservation
+            
         }
     }
 }

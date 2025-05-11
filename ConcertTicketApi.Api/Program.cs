@@ -4,6 +4,7 @@ using ConcertTicketApi.Api.Middleware;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AutoMapper;
+using ConcertTicketApi.Api.Services;
 using ConcertTicketApi.Api.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts =>
 
 var authSection = builder.Configuration.GetSection("Auth");
 var keyBytes    = Encoding.UTF8.GetBytes(authSection["Key"]!);
+
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -39,7 +43,7 @@ builder.Services
     .AddControllers()
     .AddFluentValidation(cfg =>
         cfg.RegisterValidatorsFromAssemblyContaining<CreateEventDtoValidator>());
-        
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
