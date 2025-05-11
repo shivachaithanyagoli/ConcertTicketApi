@@ -1,6 +1,9 @@
+
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;      
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ConcertTicketApi.Api.Models;
@@ -15,8 +18,11 @@ namespace ConcertTicketApi.IntegrationTests
 
         public EventsApiTests(CustomWebApplicationFactory factory)
         {
-            // Spins up the API in-memory
             _client = factory.CreateClient();
+
+            // Authenticate every request via our TestAuthHandler
+            _client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue(TestAuthHandler.SchemeName);
         }
 
         [Fact]
