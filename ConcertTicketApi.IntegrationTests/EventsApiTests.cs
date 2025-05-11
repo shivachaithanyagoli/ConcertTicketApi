@@ -9,11 +9,11 @@ using Xunit;
 
 namespace ConcertTicketApi.IntegrationTests
 {
-    public class EventsApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class EventsApiTests : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _client;
 
-        public EventsApiTests(WebApplicationFactory<Program> factory)
+        public EventsApiTests(CustomWebApplicationFactory factory)
         {
             // Spins up the API in-memory
             _client = factory.CreateClient();
