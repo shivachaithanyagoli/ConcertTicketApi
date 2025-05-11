@@ -53,3 +53,22 @@ A .NET 9 Web API for managing concert events and tickets, with full test coverag
 ---
 
 ## Project Structure
+├── .gitignore
+├── README.md
+├── ConcertTicketApi.sln
+│
+├── ConcertTicketApi.Domain/ # Domain models: Event, TicketType, Reservation
+│
+├── ConcertTicketApi.Infrastructure/ # EF Core DbContext, migrations, precision config
+│
+├── ConcertTicketApi.Api/ # ASP.NET Core Web API
+│ ├── Program.cs # Middleware, DI, JWT, Swagger setup
+│ ├── Controllers/ # EventsController, TicketsController, AuthController
+│ ├── Services/ # IEventService, ITicketService & implementations
+│ ├── Validators/ # FluentValidation DTO validators
+│ ├── Mapping/ # AutoMapper profile
+│ └── appsettings.json # Connection strings, Auth config
+│
+├── ConcertTicketApi.UnitTests/ # xUnit tests for EventService & TicketService
+│
+└── ConcertTicketApi.IntegrationTests/ # Integration tests via WebApplicationFactory<Program>
