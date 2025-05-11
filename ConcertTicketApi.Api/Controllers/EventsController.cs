@@ -1,10 +1,8 @@
 using AutoMapper;
 using ConcertTicketApi.Api.Models;
-using ConcertTicketApi.Domain.Models;
-using ConcertTicketApi.Infrastructure;
+using ConcertTicketApi.Api.Services;      
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ConcertTicketApi.Api.Controllers
 {
@@ -13,12 +11,12 @@ namespace ConcertTicketApi.Api.Controllers
     [Route("api/events")]
     public class EventsController : ControllerBase
     {
-        private readonly ApplicationDbContext _db;
-        private readonly IMapper              _mapper;
+        private readonly IEventService _svc;
+        private readonly IMapper       _mapper;
 
-        public EventsController(ApplicationDbContext db, IMapper mapper)
+        public EventsController(IEventService svc, IMapper mapper)
         {
-            _db     = db;
+            _svc    = svc;
             _mapper = mapper;
         }
 
@@ -26,51 +24,31 @@ namespace ConcertTicketApi.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var events = await _db.Events
-                .Include(e => e.TicketTypes)
-                .ToListAsync();
-
-            var dtoList = _mapper.Map<IEnumerable<EventDto>>(events);
-            return Ok(dtoList);
+            var list = await _svc.GetAllAsync();
+            return Ok(list);
         }
 
         // GET /api/events/{id}
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var ev = await _db.Events
-                .Include(e => e.TicketTypes)
-                .FirstOrDefaultAsync(e => e.Id == id);
-
-            return ev is null
-                ? NotFound()
-                : Ok(_mapper.Map<EventDto>(ev));
+            var dto = await _svc.GetByIdAsync(id);
+            return dto is null ? NotFound() : Ok(dto);
         }
 
         // POST /api/events
         [HttpPost]
         public async Task<IActionResult> Create(CreateEventDto dto)
         {
-            var ev = _mapper.Map<Event>(dto);
-            ev.Id = Guid.NewGuid();
-
-            _db.Events.Add(ev);
-            await _db.SaveChangesAsync();
-
-            var result = _mapper.Map<EventDto>(ev);
-            return CreatedAtAction(nameof(Get), new { id = ev.Id }, result);
+            var result = await _svc.CreateAsync(dto);
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         // PUT /api/events/{id}
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Update(Guid id, CreateEventDto dto)
         {
-            var ev = await _db.Events.FindAsync(id);
-            if (ev == null) return NotFound();
-
-            _mapper.Map(dto, ev);
-            await _db.SaveChangesAsync();
-
+            await _svc.UpdateAsync(id, dto);
             return NoContent();
         }
     }
