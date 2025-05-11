@@ -3,6 +3,8 @@ using ConcertTicketApi.Api.Validators;
 using ConcertTicketApi.Api.Middleware;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AutoMapper;
+using ConcertTicketApi.Api.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -37,7 +39,8 @@ builder.Services
     .AddControllers()
     .AddFluentValidation(cfg =>
         cfg.RegisterValidatorsFromAssemblyContaining<CreateEventDtoValidator>());
-
+        
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

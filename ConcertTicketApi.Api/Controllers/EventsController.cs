@@ -1,3 +1,4 @@
+using AutoMapper;
 using ConcertTicketApi.Api.Models;
 using ConcertTicketApi.Domain.Models;
 using ConcertTicketApi.Infrastructure;
@@ -13,53 +14,63 @@ namespace ConcertTicketApi.Api.Controllers
     public class EventsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        public EventsController(ApplicationDbContext db) => _db = db;
+        private readonly IMapper              _mapper;
 
-        
+        public EventsController(ApplicationDbContext db, IMapper mapper)
+        {
+            _db     = db;
+            _mapper = mapper;
+        }
+
+        // GET /api/events
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _db.Events.Include(e => e.TicketTypes).ToListAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var events = await _db.Events
+                .Include(e => e.TicketTypes)
+                .ToListAsync();
 
-        
+            var dtoList = _mapper.Map<IEnumerable<EventDto>>(events);
+            return Ok(dtoList);
+        }
+
+        // GET /api/events/{id}
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> Get(Guid id) =>
-            await _db.Events.Include(e => e.TicketTypes)
-                .FirstOrDefaultAsync(e => e.Id == id)
-            is Event ev ? Ok(ev) : NotFound();
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var ev = await _db.Events
+                .Include(e => e.TicketTypes)
+                .FirstOrDefaultAsync(e => e.Id == id);
 
-        
+            return ev is null
+                ? NotFound()
+                : Ok(_mapper.Map<EventDto>(ev));
+        }
+
+        // POST /api/events
         [HttpPost]
         public async Task<IActionResult> Create(CreateEventDto dto)
         {
-            var ev = new Event
-            {
-                Id          = Guid.NewGuid(),
-                Name        = dto.Name,
-                Date        = dto.Date,
-                Venue       = dto.Venue,
-                Description = dto.Description,
-                Capacity    = dto.Capacity
-            };
+            var ev = _mapper.Map<Event>(dto);
+            ev.Id = Guid.NewGuid();
 
             _db.Events.Add(ev);
             await _db.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = ev.Id }, ev);
+
+            var result = _mapper.Map<EventDto>(ev);
+            return CreatedAtAction(nameof(Get), new { id = ev.Id }, result);
         }
 
-        
+        // PUT /api/events/{id}
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Update(Guid id, CreateEventDto dto)
         {
             var ev = await _db.Events.FindAsync(id);
             if (ev == null) return NotFound();
 
-            ev.Name        = dto.Name;
-            ev.Date        = dto.Date;
-            ev.Venue       = dto.Venue;
-            ev.Description = dto.Description;
-            ev.Capacity    = dto.Capacity;
-
+            _mapper.Map(dto, ev);
             await _db.SaveChangesAsync();
+
             return NoContent();
         }
     }
