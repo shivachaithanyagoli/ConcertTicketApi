@@ -1,9 +1,8 @@
-
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;      
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using ConcertTicketApi.Api.Models;
@@ -12,17 +11,33 @@ using Xunit;
 
 namespace ConcertTicketApi.IntegrationTests
 {
-    public class EventsApiTests : IClassFixture<CustomWebApplicationFactory>
+    public class EventsApiTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
 
-        public EventsApiTests(CustomWebApplicationFactory factory)
+        public EventsApiTests(WebApplicationFactory<Program> factory)
         {
             _client = factory.CreateClient();
 
-            // Authenticate every request via our TestAuthHandler
+            // 1) Log in to get JWT
+            var loginResponse = _client.PostAsJsonAsync("/api/auth/login", new LoginDto {
+                Username = "admin",
+                Password = "p@ssw0rd"
+            }).GetAwaiter().GetResult();
+            loginResponse.EnsureSuccessStatusCode();
+
+            // 2) Parse the JSON safely
+            var dict = loginResponse.Content
+                .ReadFromJsonAsync<Dictionary<string, string>>()
+                .GetAwaiter().GetResult()
+                ?? throw new InvalidOperationException("Login response was empty");
+
+            if (!dict.TryGetValue("token", out var jwt) || string.IsNullOrEmpty(jwt))
+                throw new InvalidOperationException("JWT token not found in login response");
+
+            // 3) Attach to all requests
             _client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(TestAuthHandler.SchemeName);
+                new AuthenticationHeaderValue("Bearer", jwt);
         }
 
         [Fact]
@@ -42,8 +57,7 @@ namespace ConcertTicketApi.IntegrationTests
         public async Task PostEvent_CreatesAndReturnsEvent()
         {
             // Arrange
-            var dto = new CreateEventDto
-            {
+            var dto = new CreateEventDto {
                 Name        = "Integration Test Event",
                 Date        = DateTime.UtcNow.AddDays(1),
                 Venue       = "Test Venue",
@@ -60,7 +74,7 @@ namespace ConcertTicketApi.IntegrationTests
             Assert.NotNull(created);
             Assert.Equal(dto.Name, created!.Name);
 
-            // Cleanup: ensure we can retrieve it
+            // Cleanup: verify retrieval
             var getResponse = await _client.GetAsync($"/api/events/{created.Id}");
             Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
         }
